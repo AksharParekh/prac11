@@ -1,0 +1,83 @@
+@model SmartCampusPortal.Models.ServiceRequest
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Campus Service Request</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 30px; background-color: #fdfdfd; color: #333; }
+        h2 { color: #003366; border-bottom: 2px solid #003366; padding-bottom: 8px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input[type="text"], textarea, select { width: 400px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        textarea { height: 80px; }
+        input[type="submit"] { padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #004c99; }
+        .field-validation-error { color: #d9534f; font-size: 0.9em; display: block; margin-top: 4px; }
+        a { color: #0066cc; text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>Create Campus Service Request</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-group">
+            <label>Student Name</label>
+            @Html.TextBoxFor(m => m.StudentName)
+            @Html.ValidationMessageFor(m => m.StudentName)
+        </div>
+
+        <div class="form-group">
+            <label>Department</label>
+            @Html.TextBoxFor(m => m.Department)
+            @Html.ValidationMessageFor(m => m.Department)
+        </div>
+
+        <div class="form-group">
+            <label>Service Type</label>
+            @Html.DropDownListFor(m => m.ServiceType,
+                new SelectList(new[]
+                {
+                    "IT Support",
+                    "Library",
+                    "Maintenance",
+                    "Transport"
+                }))
+            @Html.ValidationMessageFor(m => m.ServiceType)
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            @Html.TextAreaFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description)
+        </div>
+
+        <div class="form-group">
+            <label>Priority</label>
+            @Html.DropDownListFor(m => m.Priority,
+                new SelectList(new[]
+                {
+                    "Low",
+                    "Medium",
+                    "High"
+                }))
+        </div>
+
+        <br />
+        <input type="submit" value="Submit Request" />
+    }
+
+    <p style="margin-top: 20px;">
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

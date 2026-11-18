@@ -1,0 +1,52 @@
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Update Request Status</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 30px; background-color: #fdfdfd; color: #333; }
+        h2 { color: #003366; border-bottom: 2px solid #003366; padding-bottom: 8px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        select { width: 300px; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        input[type="submit"] { padding: 10px 20px; background-color: #0066cc; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        input[type="submit"]:hover { background-color: #004c99; }
+        a { color: #0066cc; text-decoration: none; font-weight: 600; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>Update Request Status (Request ID: @ViewBag.RequestId)</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               name="id"
+               value="@ViewBag.RequestId" />
+
+        <div class="form-group">
+            <label>Select New Status</label>
+            @Html.DropDownList("status",
+                new SelectList(new[]
+                {
+                    "Pending",
+                    "In Progress",
+                    "Completed"
+                }))
+        </div>
+
+        <br />
+        <input type="submit" value="Update Status" />
+    }
+
+    <p style="margin-top: 20px;">
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
